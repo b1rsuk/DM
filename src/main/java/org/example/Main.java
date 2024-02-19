@@ -5,7 +5,6 @@ import org.example.sort.SortPart;
 import org.example.sort.method.SortMethod;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Main {
 
@@ -25,33 +24,6 @@ public class Main {
         Sort selectionSort = sortMethod.selectionSort();
         System.out.println(selectionSort);
 
-    }
-
-    private static int[] readArrayFromConsole() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter numbers for the array (separate them by space)");
-        String input = scanner.nextLine();
-        String[] numbers = input.split(" ");
-        int[] arr = new int[numbers.length];
-
-        for (int i = 0; i < numbers.length; i++) {
-            arr[i] = Integer.parseInt(numbers[i]);
-        }
-
-        return arr;
-    }
-
-    public static SortPart readSortPartFromConsole() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the start index of the sorting range:");
-        int from = scanner.nextInt();
-
-        System.out.println("Enter the end index of the sorting range:");
-        int to = scanner.nextInt();
-
-        return new SortPart(from, to);
     }
 
 }
