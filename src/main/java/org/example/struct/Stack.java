@@ -1,56 +1,28 @@
 package org.example.struct;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class Stack<T> {
-    private final List<T> stack = new ArrayList<>();
-
-
-    public Stack(T[] arr) {
-        stack.addAll(Arrays.asList(arr));
-    }
-
-    private int getLastElem() {
-        return (this.stack.size() - 1);
-    }
+public class Stack<T> extends NodeList<T> {
 
     public void push(T elem) {
-        stack.add(elem);
-    }
-
-    public T peek() {
-        verifyStack();
-
-        int lastElemIndex = getLastElem();
-        this.show(lastElemIndex);
-
-        return stack.get(lastElemIndex);
+        super.push(elem);
     }
 
     public T pop() {
-        verifyStack();
+        Node<T> current = super.head;
+        Node<T> previous = null;
 
-        int lastElemIndex = getLastElem();
-        this.show(lastElemIndex);
-
-        return this.stack.remove(lastElemIndex);
-    }
-
-    private void verifyStack() {
-        if (this.stack.isEmpty()) {
-            throw new RuntimeException("Stack is empty");
+        while (current.next != null) {
+            previous = current;
+            current = current.next;
         }
+
+        if (previous == null) {
+            super.head = null;
+        } else {
+            previous.next = null;
+        }
+
+        return current.data;
     }
 
-    public T show(int index) {
-        T elem = this.stack.get(index);
-        return elem;
-    }
-
-    public List<T> show() {
-        return stack;
-    }
 
 }
