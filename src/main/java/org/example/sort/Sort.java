@@ -3,10 +3,24 @@ package org.example.sort;
 import java.util.Arrays;
 
 public abstract class Sort {
-    protected int[] arr;
+    protected final int[] arr;
+    protected final int[] partOfArr;
 
-    public Sort(int[] arr) {
-        this.arr = sort(arr.clone());
+    protected Sort(int[] arr, SortPart sortPart) {
+        int[] copyArr = arr.clone();
+
+        int from = sortPart.from;
+        int to = sortPart.to;
+        int[] partOfArr = Arrays.copyOfRange(copyArr, from, (to + 1));
+
+        int[] sortedPart = sort(partOfArr);
+
+        for (int i = from, j = 0; i < to; i++, j++) {
+            copyArr[i] = sortedPart[j];
+        }
+
+        this.partOfArr = partOfArr;
+        this.arr = copyArr;
     }
 
     protected abstract int[] sort(int[] arr);
@@ -17,8 +31,17 @@ public abstract class Sort {
         arr[j] = temp;
     }
 
+    private int minItem() {
+        return this.partOfArr[0];
+    }
+
+    private int maxItem() {
+        return this.partOfArr[partOfArr.length - 1];
+    }
+
     @Override
     public String toString() {
-        return Arrays.toString(arr);
+        return String.format("Arrays: %s. Sorted part: %s. Min: %s. Max: %s", Arrays.toString(this.arr), Arrays.toString(this.partOfArr), minItem(), maxItem());
     }
+
 }

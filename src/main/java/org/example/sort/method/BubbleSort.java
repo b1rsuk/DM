@@ -1,10 +1,13 @@
-package org.example.sort;
+package org.example.sort.method;
+
+import org.example.sort.Sort;
+import org.example.sort.SortPart;
 
 public class BubbleSort extends Sort {
 
 
-    public BubbleSort(int[] arr) {
-        super(arr);
+    protected BubbleSort(int[] arr, SortPart sortPart) {
+        super(arr, sortPart);
     }
 
     @Override
