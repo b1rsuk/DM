@@ -16,6 +16,10 @@ public class Stack<T> {
         return (this.stack.size() - 1);
     }
 
+    public void push(T elem) {
+        stack.add(elem);
+    }
+
     public T peek() {
         verifyStack();
 
@@ -40,13 +44,13 @@ public class Stack<T> {
         }
     }
 
-    public void show(int index) {
+    public T show(int index) {
         T elem = this.stack.get(index);
-        System.out.println(elem);
+        return elem;
     }
 
-    public void show() {
-        System.out.println(stack);
+    public List<T> show() {
+        return stack;
     }
 
 }
