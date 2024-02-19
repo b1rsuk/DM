@@ -6,12 +6,13 @@ public abstract class Sort {
     protected final int[] arr;
     protected final int[] partOfArr;
 
-    protected Sort(int[] arr, SortPart sortPart) {
+    protected Sort(int[] arr, SortPart sortPart, String sortName) {
+        System.out.println(sortName + " ");
         int[] copyArr = arr.clone();
 
         int from = sortPart.from;
         int to = sortPart.to;
-        int[] partOfArr = Arrays.copyOfRange(copyArr, from, (to + 1));
+        int[] partOfArr = Arrays.copyOfRange(copyArr, from, (to));
 
         int[] sortedPart = sort(partOfArr);
 

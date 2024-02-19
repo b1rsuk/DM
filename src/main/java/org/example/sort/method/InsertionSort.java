@@ -7,7 +7,7 @@ public class InsertionSort extends Sort {
 
 
     protected InsertionSort(int[] arr, SortPart sortPart) {
-        super(arr, sortPart);
+        super(arr, sortPart, "InsertionSort");
     }
 
     @Override

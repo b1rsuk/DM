@@ -7,7 +7,7 @@ public class SelectionSort extends Sort {
 
 
     protected SelectionSort(int[] arr, SortPart sortPart) {
-        super(arr, sortPart);
+        super(arr, sortPart, "SelectionSort");
     }
 
     @Override

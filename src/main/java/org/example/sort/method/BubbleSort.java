@@ -5,9 +5,8 @@ import org.example.sort.SortPart;
 
 public class BubbleSort extends Sort {
 
-
     protected BubbleSort(int[] arr, SortPart sortPart) {
-        super(arr, sortPart);
+        super(arr, sortPart, "BubbleSort");
     }
 
     @Override

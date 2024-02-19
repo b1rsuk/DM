@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = readArrayFromConsole();
-        SortPart sortPart = readSortPartFromConsole();
+        int[] arr = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        SortPart sortPart = new SortPart(0, arr.length);
 
         System.out.println("Original arrays " + Arrays.toString(arr));
         SortMethod sortMethod = new SortMethod(arr, sortPart);
