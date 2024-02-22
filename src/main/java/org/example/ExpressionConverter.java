@@ -1,5 +1,9 @@
 package org.example;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public final class ExpressionConverter {
@@ -40,6 +44,30 @@ public final class ExpressionConverter {
 
 
         return new StringBuilder(postfix).reverse().toString();
+    }
+    public static String postfixToInfix(String postfixExpression) {
+        Stack<String> expressionStack = new Stack<>();
+
+        for (char token : postfixExpression.toCharArray()) {
+            if (isOperand(token)) {
+                expressionStack.add(String.valueOf(token));
+                continue;
+            }
+
+            String operand2 = expressionStack.pop();
+            String operand1 = expressionStack.pop();
+            String newExpression = String.format("(%s %s %s)", operand1, token, operand2);
+
+            expressionStack.add(newExpression);
+        }
+
+        return expressionStack.toString().replace("[", "").replace("]", "");
+    }
+
+    public static String prefixToInfix(String prefixExpression) {
+        prefixExpression = new StringBuilder(prefixExpression).reverse().toString();
+
+        return postfixToInfix(prefixExpression);
     }
 
     private static boolean isOperator(char s) {
