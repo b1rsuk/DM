@@ -1,0 +1,9 @@
+package org.example.struct;
+
+public class Node {
+
+    public char data;
+    public Node(char data){
+        this.data = data;
+    }
+}
