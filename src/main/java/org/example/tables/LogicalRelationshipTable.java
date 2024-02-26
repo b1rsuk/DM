@@ -11,7 +11,10 @@ public class LogicalRelationshipTable extends Table {
             "NOT a",
             "a AND b",
             "a OR b",
-            "A XOR b"
+            "A XOR b",
+            "A EQU B",
+            "A IMP B",
+
     };
 
     public LogicalRelationshipTable(Combination[] combination) {
@@ -28,7 +31,9 @@ public class LogicalRelationshipTable extends Table {
                 TruthOperation.convertBooleanToInt(TruthOperation.NOT(a)),
                 TruthOperation.convertBooleanToInt(TruthOperation.AND(a, b)),
                 TruthOperation.convertBooleanToInt(TruthOperation.OR(a, b)),
-                TruthOperation.convertBooleanToInt(TruthOperation.XOR(a, b))
+                TruthOperation.convertBooleanToInt(TruthOperation.XOR(a, b)),
+                TruthOperation.convertBooleanToInt(TruthOperation.EQU(a, b)),
+                TruthOperation.convertBooleanToInt(TruthOperation.IMP(a, b)),
         };
 
         addRow(newRow);
