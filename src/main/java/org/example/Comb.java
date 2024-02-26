@@ -32,15 +32,11 @@ public class Comb {
 
         Arrays.sort(A, k + 1, n);
     }
-
     public static int factorial(int n) {
-        if (n == 0)
+        if (n == 0 || n == 1)
             return 1;
-        int result = 1;
-        for (int i = 1; i <= n; i++) {
-            result *= i;
-        }
-        return result;
+
+        return n * factorial(n - 1);
     }
 
     public static int A(int n, int k) {
