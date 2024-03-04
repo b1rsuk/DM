@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.Arrays;
-
 public class Comb {
     public static int factorial(int n) {
         if (n == 0 || n == 1)
