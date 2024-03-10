@@ -1,131 +1,112 @@
 package org.example;
 
 
+import jline.console.ConsoleReader;
 import org.example.struct.DoublyList;
 import org.example.struct.Node;
 import org.example.struct.Queue;
 import org.example.struct.Stack;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("STACK");
-        Stack<Integer> stack = new Stack<>(){
-            @Override
-            public void push(Integer newData) {
-                super.push(newData);
-                System.out.printf("Add to stack: %s. New stack is %s\n", newData, this);
+
+        Stack<Integer> stack = new Stack<>();
+        Queue<Integer> queue = new Queue<>();
+        DoublyList<Integer> list = new DoublyList<>();
+
+        while (true) {
+            System.out.print("STACK: ");
+            System.out.println(stack);
+            System.out.print("QUEUE: ");
+            System.out.println(queue);
+
+            System.out.print("DOUBLY LIST: ");
+            System.out.println(list);
+
+            Scanner scanner = new Scanner(System.in);
+            String[] choice = scanner.nextLine().split("[\\.\\(\\)]");
+            clearConsole();
+
+            String struct = choice[0];
+            String method = choice[1];
+
+            String arg = null;
+            if (choice.length == 3) {
+                 arg = choice[2];
             }
 
-            @Override
-            public Integer pop() {
-                Integer deleted = super.pop();
-                System.out.println("Deleted from stack " + deleted);
+            switch (struct) {
 
-                return deleted;
-            }
-        };
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        stack.push(4);
-        stack.pop();
+                case ("stack"): {
+                    switch (method) {
+                        case ("push"):
+                            stack.push(Integer.parseInt(arg));
+                            break;
+                        case ("pop"):
+                            int deletedElem = stack.pop();
+                            System.out.println("Deleted elem from stack: " + deletedElem);
+                            break;
+                    }
+                    break;
+                }
+                case ("queue"): {
+                    switch (method) {
+                        case ("enqueue"):
+                            queue.enqueue(Integer.parseInt(arg));
+                            break;
+                        case ("dequeue"):
+                            int deletedElem = queue.dequeue();
+                            System.out.println("Deleted elem from queue: " + deletedElem);
+                            break;
+                    }
+                    break;
+                }
+                case ("list"): {
+                    switch (method) {
+                        case ("addBegin"):
+                            list.addBegin(Integer.parseInt(arg));
+                            break;
+                        case ("addEnd"):
+                            list.addEnd(Integer.parseInt(arg));
+                            break;
+                        case ("delBegin"):
+                            list.delBegin();
+                            break;
+                        case ("delEnd"):
+                            list.delEnd();
+                            break;
+                        case ("delMid"):
+                            list.delMid(Integer.parseInt(arg));
+                            break;
+                        case ("search"):
+                            list.search(Integer.parseInt(arg));
+                            break;
+                        case ("addMid"):
+                            String[] searchArg = arg.split(", ");
 
-        System.out.println(stack);
-
-        System.out.println("QUEUE");
-
-        Queue<Integer> queue = new Queue<>() {
-            @Override
-            public void enqueue(Integer newData) {
-                super.push(newData);
-                System.out.printf("Add to queue: %s. New queue is %s\n", newData, this);
-            }
-
-            @Override
-            public Integer dequeue() {
-                Integer deleted = super.dequeue();
-                System.out.println("Deleted from dequeue " + deleted);
-
-                return deleted;
-            }
-        };
-
-        queue.enqueue(1);
-        queue.enqueue(2);
-        queue.enqueue(3);
-        queue.enqueue(4);
-
-        queue.dequeue();
-
-        System.out.println(queue);
-
-        System.out.println("DOUBLY LIST");
-        DoublyList<Integer> doublyList = new DoublyList<>() {
-            @Override
-            public void addBegin(Integer newData) {
-                super.addBegin(newData);
-                System.out.printf("Add to doublyList: %s. New doublyList is %s\n", this, newData);
-            }
-
-            @Override
-            public void addEnd(Integer newData) {
-                super.addEnd(newData);
-                System.out.printf("Add to end doublyList: %s. New doublyList is %s\n", this, newData);
-            }
-
-            @Override
-            public Integer delBegin() {
-                Integer deleted = super.delBegin();
-                System.out.println(deleted);
-                System.out.printf("Deleted from doublyList: %s. New doublyList is %s\n", deleted, this);
-
-                return deleted;
+                            Integer key = Integer.parseInt(searchArg[0]);
+                            Integer newData = Integer.parseInt(searchArg[1]);
+                            list.addMid(key, newData);
+                            break;
+                    }
+                    break;
+                }
             }
 
-            @Override
-            public Integer delEnd() {
-                Integer deleted = super.delEnd();
-                System.out.printf("Deleted from end of doublyList: %s. New doublyList is %s\n", deleted, this);
+        }
 
-                return deleted;
-            }
-
-            @Override
-            public boolean addMid(Integer key, Integer newData) {
-                boolean addMid = super.addMid(key, newData);
-                System.out.printf("Add after %d. New doubly list: %s\n", key, this);
-
-                return addMid;
-            }
-
-            @Override
-            public boolean delMid(Integer key) {
-                boolean delMid = super.delMid(key);
-                System.out.printf("Successfully deleted element with key %d\n", key);
-
-                return delMid;
-            }
-
-        };
-        doublyList.addBegin(1);
-        doublyList.addBegin(2);
-        doublyList.addBegin(3);
-        doublyList.addBegin(4);
-        doublyList.addBegin(5);
-        doublyList.addBegin(6);
-        doublyList.addEnd(9);
-        doublyList.delBegin();
-        doublyList.delEnd();
-        doublyList.search(5);
-        doublyList.addMid(5, 3);
-        doublyList.delMid(2);
-
-        System.out.println(doublyList);
     }
 
-
+    public static void clearConsole() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println();
+        }
+    }
 
 }
