@@ -20,12 +20,11 @@ public class Main {
         scanner.close();
         calculate(n, k);
 
-        List<Integer> permutation = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        int[] permutation = {1, 2, 3, 4, 5, 6};
         System.out.println("genPerm");
         CombinatorialGenerator.genPerm(permutation);
         System.out.println("genComb");
-        CombinatorialGenerator.genComb(permutation, 4, 6);
-        System.out.println(permutation);
+        CombinatorialGenerator.genComb(k, n);
 
     }
 

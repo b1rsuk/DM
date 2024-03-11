@@ -1,32 +1,44 @@
 package org.example;
 
+import org.example.sort.SortPart;
+import org.example.sort.method.SortMethod;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
 public final class CombinatorialGenerator {
 
-    public static void genPerm(List<Integer> permutation) {
-        System.out.println(permutation);
-        for (int i = 1; i < Comb.factorial(permutation.size()); i++) {
+    public static void genPerm(int[] permutation) {
+        System.out.println(Arrays.toString(permutation));
+        for (int i = 1; i < Comb.factorial(permutation.length); i++) {
             int maxIndex = findMaxIndex(permutation);
-            int maxElem = permutation.get(maxIndex);
+            int maxElem = permutation[maxIndex];
             int swapIndex = findIndexBiggerElement(permutation, maxElem);
-            Collections.swap(permutation, maxIndex, swapIndex);
-            reverse(permutation, ++maxIndex);
-            System.out.println(permutation);
+            swap(permutation, maxIndex, swapIndex);
+
+            SortPart sortPart = new SortPart(maxIndex + 1, permutation.length);
+            SortMethod sortMethod = new SortMethod(permutation, sortPart);
+            permutation = sortMethod.bubbleSort().getArr();
+
+            System.out.println(Arrays.toString(permutation));
         }
     }
 
-    public static void genComb(List<Integer> list, int k, int n) {
-        List<Integer> comb = new ArrayList<>(list.subList(0, k));
+    public static void genComb(int k, int n) {
+        int[] comb = new int[k];
+        for (int i = 0; i < comb.length; i++) {
+            comb[i] = i + 1;
+        }
+
         while (true) {
-            System.out.println(comb);
+            System.out.println(Arrays.toString(comb));
             int m = -1;
             for (int i = k - 1; i >= 0; i--) {
-                if (comb.get(i) <= n - k + i) {
-                    comb.set(i, comb.get(i) + 1);
+                if (comb[i] <= n - k + i) {
+                    comb[i] += 1;
                     m = i;
                     break;
                 }
@@ -35,14 +47,14 @@ public final class CombinatorialGenerator {
                 break;
             }
             for (int i = m + 1; i < k; i++) {
-                comb.set(i, comb.get(i - 1) + 1);
+                comb[i] = comb[i - 1] + 1;
             }
         }
     }
 
-    private static int findMaxIndex(List<Integer> permutation) {
-        for (int i = permutation.size() - 2; i >= 0; i--) {
-            if (permutation.get(i) < permutation.get(i + 1)) {
+    private static int findMaxIndex(int[] permutation) {
+        for (int i = permutation.length - 2; i >= 0; i--) {
+            if (permutation[i] < permutation[i + 1]) {
                 return i;
             }
         }
@@ -50,9 +62,9 @@ public final class CombinatorialGenerator {
         return -1;
     }
 
-    private static int findIndexBiggerElement(List<Integer> permutation, int element) {
-        for (int i = permutation.size() - 1; i >= 0; i--) {
-            if (permutation.get(i) > element) {
+    private static int findIndexBiggerElement(int[] permutation, int element) {
+        for (int i = permutation.length - 1; i >= 0; i--) {
+            if (permutation[i] > element) {
                 return i;
             }
         }
@@ -71,5 +83,11 @@ public final class CombinatorialGenerator {
                 .toList();
 
         list.addAll(reversedList);
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
