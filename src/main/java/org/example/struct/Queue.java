@@ -6,8 +6,12 @@ public class Queue<T> extends NodeList<T> {
     }
 
     public T dequeue() {
+        if (head == null) {
+            return null;
+        }
         T data = head.data;
         super.head = head.next;
+
         return data;
     }
 }

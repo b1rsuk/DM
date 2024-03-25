@@ -9,7 +9,9 @@ public class Stack<T> extends NodeList<T> {
     public T pop() {
         Node<T> current = super.head;
         Node<T> previous = null;
-
+        if (current == null) {
+            return null;
+        }
         while (current.next != null) {
             previous = current;
             current = current.next;

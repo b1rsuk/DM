@@ -37,23 +37,40 @@ public class DoublyList<T> extends NodeList<T> {
         newNode.previous = foundNode;
         return true;
     }
-
     public boolean delMid(T key) {
         Node<T> foundNode = search(key);
-        if (foundNode == null || foundNode == this.head) {
+
+        if (foundNode == null) {
             return false;
         }
 
         if (foundNode.next != null) {
             foundNode.next.previous = foundNode.previous;
         }
+
+        if (foundNode.previous == null && foundNode.next == null) {
+            head.previous = null;
+            head = null;
+            return true;
+        }
+
+        if (foundNode.previous == null) {
+            delBegin();
+            return true;
+        }
+
+        if (foundNode.next == null) {
+            delEnd();
+            return true;
+        }
+
         foundNode.previous.next = foundNode.next;
         return true;
     }
 
     public T delEnd() {
         if (this.head == null) {
-            throw new RuntimeException();
+            return null;
         }
 
         if (this.head.next == null) {
@@ -85,6 +102,11 @@ public class DoublyList<T> extends NodeList<T> {
 
     public void addEnd(T newData) {
         Node<T> newNode = new Node<>(newData);
+        if (this.head == null) {
+            this.head = newNode;
+            return;
+        }
+
         Node<T> current = this.head;
 
         while (current.next != null) {
