@@ -48,15 +48,15 @@ public final class ExpressionConverter {
     public static String postfixToInfix(String postfixExpression) {
         Stack<String> expressionStack = new Stack<>();
 
-        for (char token : postfixExpression.toCharArray()) {
-            if (isOperand(token)) {
-                expressionStack.add(String.valueOf(token));
+        for (char s : postfixExpression.toCharArray()) {
+            if (isOperand(s)) {
+                expressionStack.add(String.valueOf(s));
                 continue;
             }
 
-            String operand2 = expressionStack.pop();
-            String operand1 = expressionStack.pop();
-            String newExpression = String.format("(%s %s %s)", operand1, token, operand2);
+            String operation1 = expressionStack.pop();
+            String operation2 = expressionStack.pop();
+            String newExpression = String.format("(%s %s %s)", operation1, s, operation2);
 
             expressionStack.add(newExpression);
         }
@@ -71,11 +71,10 @@ public final class ExpressionConverter {
     }
 
     private static boolean isOperator(char s) {
-        return (s == '+' || s == '-' || s == '*' || s == '/');
+        return (s == '+' || s == '-' || s == '*' || s == '/' || s == '^');
     }
 
-    public static boolean isOperand(char s) {
-        return Character.isDigit(s);
+    public static boolean isOperand(char c) {
+        return Character.isLetter(c) || Character.isDigit(c);
     }
-
 }

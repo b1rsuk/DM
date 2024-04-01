@@ -29,10 +29,12 @@ public class Main {
             case "3": {
                 String out = generateOutput("postfixToInfix", expression, ExpressionConverter.postfixToInfix(expression));
                 System.out.println(out);
+                return;
             }
             case "4": {
                 String out = generateOutput("prefixToInfix", expression, ExpressionConverter.prefixToInfix(expression));
                 System.out.println(out);
+                return;
             }
         }
     }
