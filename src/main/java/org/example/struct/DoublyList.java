@@ -3,8 +3,11 @@ package org.example.struct;
 public class DoublyList<T> extends NodeList<T> {
 
     public T delBegin() {
-
         Node<T> current = this.head;
+        if (current == null) {
+            return null;
+        }
+
         T elem = current.data;
 
         this.head = current.next;
