@@ -45,10 +45,32 @@ public final class ExpressionConverter {
 
         return new StringBuilder(postfix).reverse().toString();
     }
+
     public static String postfixToInfix(String postfixExpression) {
         Stack<String> expressionStack = new Stack<>();
 
         for (char s : postfixExpression.toCharArray()) {
+            if (isOperand(s)) {
+                expressionStack.push(String.valueOf(s));
+                continue;
+            }
+
+            String operation2 = expressionStack.pop();
+            String operation1 = expressionStack.pop();
+            String newExpression = String.format("(%s %s %s)", operation1, s, operation2);
+            expressionStack.push(newExpression);
+        }
+
+
+        return expressionStack.pop();
+    }
+
+    public static String prefixToInfix(String prefixExpression) {
+        prefixExpression = new StringBuilder(prefixExpression).reverse().toString();
+
+        Stack<String> expressionStack = new Stack<>();
+
+        for (char s : prefixExpression.toCharArray()) {
             if (isOperand(s)) {
                 expressionStack.add(String.valueOf(s));
                 continue;
@@ -62,12 +84,6 @@ public final class ExpressionConverter {
         }
 
         return expressionStack.toString().replace("[", "").replace("]", "");
-    }
-
-    public static String prefixToInfix(String prefixExpression) {
-        prefixExpression = new StringBuilder(prefixExpression).reverse().toString();
-
-        return postfixToInfix(prefixExpression);
     }
 
     private static boolean isOperator(char s) {
