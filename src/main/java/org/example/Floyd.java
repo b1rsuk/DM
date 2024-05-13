@@ -3,14 +3,12 @@ package org.example;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 
 public class Floyd {
@@ -46,14 +44,27 @@ public class Floyd {
             printMatrix(route);
         }
 
-        for (int i = 0; i < graph.length; i++) {
-            for (int j = 0; j < graph[i].length; j++) {
-                graph[i][j]
+        printPath(route, 5, 3);
+
+    }
+
+    public static void printPath(int[][] routeMatrix, int startVertex, int endVertex) {
+        Stack<Integer> pathStack = new Stack<>();
+        pathStack.push(endVertex);
+
+        while (!pathStack.empty()) {
+            int prevVertex = routeMatrix[startVertex - 1][pathStack.peek() - 1];
+            pathStack.push(prevVertex);
+            if (prevVertex == startVertex) {
+                break;
             }
         }
+        Collections.reverse(pathStack);
 
-        System.out.println(stringBuilder);
-
+        String pathToString = pathStack.stream()
+                .map(vertex -> "V" + vertex)
+                .collect(Collectors.joining(" > "));
+        System.out.println(pathToString);
     }
 
     private static int[][] generateRoute(int matrixSize) {
